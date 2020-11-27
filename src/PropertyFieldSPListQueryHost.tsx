@@ -60,7 +60,8 @@ export default class PropertyFieldSPListQueryHost extends React.Component<IPrope
   private latestValidateValue: string;
   private async: Async;
   private delayedValidate: (value: string) => void;
-
+  private readonly STARTSWITH = "startswith";
+  private readonly SUBSTRINGOF = "substringof";
   /**
    * @function
    * Constructor
@@ -90,8 +91,8 @@ export default class PropertyFieldSPListQueryHost extends React.Component<IPrope
       operators: [
         {key: 'eq', text: strings.SPListQueryOperatorEq},
          {key: 'ne', text: strings.SPListQueryOperatorNe},
-          {key: 'startsWith', text: strings.SPListQueryOperatorStartsWith},
-           {key: 'substringof', text: strings.SPListQueryOperatorSubstringof},
+          {key: this.STARTSWITH, text: strings.SPListQueryOperatorStartsWith},
+           {key: this.SUBSTRINGOF, text: strings.SPListQueryOperatorSubstringof},
             {key: 'lt', text: strings.SPListQueryOperatorLt},
              {key: 'le', text: strings.SPListQueryOperatorLe},
               {key: 'gt', text: strings.SPListQueryOperatorGt},
@@ -154,19 +155,38 @@ export default class PropertyFieldSPListQueryHost extends React.Component<IPrope
       if (filter != null && filter != '') {
         var subFilter = filter.split("%20and%20");
         for (var i = 0; i < subFilter.length; i++) {
-          var fieldId: string = subFilter[i].substr(0, subFilter[i].indexOf("%20"));
-          var operator: string = subFilter[i].substr(subFilter[i].indexOf("%20"));
-          operator = operator.substr(3);
-          operator = operator.substr(0, operator.indexOf("%20"));
-          var value: string = subFilter[i].substr(subFilter[i].indexOf(operator + "%20"));
-          value = value.replace(operator + "%20", "");
-          value = value.replace("'", "").replace("'", "").replace("'", "");
-          if (value == "undefined")
-            value = '';
-          var newObj: IFilter = {};
-          newObj.field = fieldId;
-          newObj.operator = operator;
-          newObj.value = value;
+          var newObj: IFilter = {
+            field: "",
+            operator: "",
+            value: ""
+          };
+          var value = "";
+          if (subFilter[i].indexOf(this.STARTSWITH) === 0) {
+            newObj.operator = this.STARTSWITH;
+            value = subFilter[i].slice(this.STARTSWITH.length).slice(1,-1);
+            newObj.field = value.split(",")[0];
+            newObj.value = value.replace(newObj.field + ",", "").replace("'", "").replace("'", "").replace("'", "");
+          } else if (subFilter[i].indexOf(this.SUBSTRINGOF,) === 0) {
+            newObj.operator = this.SUBSTRINGOF;
+            value = subFilter[i].slice(this.SUBSTRINGOF.length).slice(1,-1);
+            newObj.field = value.split(",")[1];
+            newObj.value = value.replace("," + newObj.field, "").replace("'", "").replace("'", "").replace("'", "");
+          }
+          else {
+            var fieldId: string = subFilter[i].substr(0, subFilter[i].indexOf("%20"));
+            var operator: string = subFilter[i].substr(subFilter[i].indexOf("%20"));
+            operator = operator.substr(3);
+            operator = operator.substr(0, operator.indexOf("%20"));
+            value = subFilter[i].substr(subFilter[i].indexOf(operator + "%20"));
+            value = value.replace(operator + "%20", "");
+            value = value.replace("'", "").replace("'", "").replace("'", "");
+            if (value == "undefined")
+              value = '';
+            newObj.field = fieldId;
+            newObj.operator = operator;
+            newObj.value = value;
+
+          }
           this.state.filters.push(newObj);
         }
       }
@@ -250,12 +270,28 @@ export default class PropertyFieldSPListQueryHost extends React.Component<IPrope
             if (i > 0) {
               queryUrl += "%20and%20";
             }
-            queryUrl += this.state.filters[i].field;
-            queryUrl += "%20";
-            queryUrl += this.state.filters[i].operator;
-            queryUrl += "%20'";
-            queryUrl += this.state.filters[i].value;
-            queryUrl += "'";
+            if (this.state.filters[i].operator === "startswith") {
+              queryUrl += this.state.filters[i].operator;
+              queryUrl += "(";
+              queryUrl += this.state.filters[i].field;
+              queryUrl += ",'";
+              queryUrl += this.state.filters[i].value;
+              queryUrl += "')";
+            } else if (this.state.filters[i].operator === "substringof") {
+              queryUrl += this.state.filters[i].operator;
+              queryUrl += "('";
+              queryUrl += this.state.filters[i].value;
+              queryUrl += "',";
+              queryUrl += this.state.filters[i].field;
+              queryUrl += ")";
+            } else {
+              queryUrl += this.state.filters[i].field;
+              queryUrl += "%20";
+              queryUrl += this.state.filters[i].operator;
+              queryUrl += "%20'";
+              queryUrl += this.state.filters[i].value;
+              queryUrl += "'";
+            }
           }
         }
         queryUrl += '&';
