@@ -197,8 +197,8 @@ export default class PropertyFieldMapPickerHost extends React.Component<IPropert
                 <table style={{width: '100%', borderSpacing: 0}}>
                   <tbody>
                     <tr>
-                      <td><IconButton iconProps={ { iconName: 'MapPin' } } disabled={this.props.disabled} onClick={this.onGetCurrentLocation}  /></td>
-                      <td><IconButton disabled={this.props.disabled} iconProps={ { iconName: this.state.isOpen ? 'ChevronUpSmall': 'ChevronDownSmall' } } onClick={this.onClickChevron}  /></td>
+                      <td><IconButton icon={ 'MapPin' } disabled={this.props.disabled} onClick={this.onGetCurrentLocation}  /></td>
+                      <td><IconButton disabled={this.props.disabled} icon={ this.state.isOpen ? 'ChevronUpSmall': 'ChevronDownSmall' } onClick={this.onClickChevron}  /></td>
                     </tr>
                   </tbody>
                 </table>

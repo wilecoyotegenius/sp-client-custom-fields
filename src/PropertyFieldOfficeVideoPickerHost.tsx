@@ -266,8 +266,8 @@ export default class PropertyFieldOfficeVideoPickerHost extends React.Component<
                 <table style={{width: '100%', borderSpacing: 0}}>
                   <tbody>
                     <tr>
-                      <td><IconButton disabled={this.props.disabled} iconProps={ { iconName: 'FolderSearch' } }  onClick={this.onOpenPanel} /></td>
-                      <td><IconButton disabled={this.props.disabled === false && (this.state.selectedVideo != null && this.state.selectedVideo != '') ? false: true} iconProps={ { iconName: 'Delete' } } onClick={this.onEraseButton} /></td>
+                      <td><IconButton disabled={this.props.disabled} icon={ 'FolderSearch' }  onClick={this.onOpenPanel} /></td>
+                      <td><IconButton disabled={this.props.disabled === false && (this.state.selectedVideo != null && this.state.selectedVideo != '') ? false: true} icon={ 'Delete' } onClick={this.onEraseButton} /></td>
                     </tr>
                   </tbody>
                 </table>

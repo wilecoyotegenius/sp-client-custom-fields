@@ -231,8 +231,8 @@ export default class PropertyFieldSortableListHost extends React.Component<IProp
               <table style={{width: '100%', borderSpacing: 0}}>
                   <tbody>
                     <tr>
-                      <td><IconButton iconProps={ { iconName: 'ChevronUp' } } onClick={this.sortDescending} disabled={this.props.disabled}></IconButton></td>
-                      <td><IconButton iconProps={ { iconName: 'ChevronDown' } } onClick={this.sortAscending} disabled={this.props.disabled}></IconButton></td>
+                      <td><IconButton icon={ 'ChevronUp' } onClick={this.sortDescending} disabled={this.props.disabled}></IconButton></td>
+                      <td><IconButton icon={ 'ChevronDown' } onClick={this.sortAscending} disabled={this.props.disabled}></IconButton></td>
                     </tr>
                   </tbody>
               </table>

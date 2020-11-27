@@ -293,8 +293,8 @@ export default class PropertyFieldDocumentPickerHost extends React.Component<IPr
                 <table style={{width: '100%', borderSpacing: 0}}>
                   <tbody>
                     <tr>
-                      <td><IconButton disabled={this.props.disabled} iconProps={ { iconName: 'FolderSearch' } } onClick={this.onOpenPanel} /></td>
-                      <td><IconButton disabled={this.props.disabled === false && (this.state.selectedImage != null && this.state.selectedImage != '') ? false: true} iconProps={ { iconName: 'Delete' } }  onClick={this.onEraseButton} /></td>
+                      <td><IconButton disabled={this.props.disabled} icon={ 'FolderSearch' } onClick={this.onOpenPanel} /></td>
+                      <td><IconButton disabled={this.props.disabled === false && (this.state.selectedImage != null && this.state.selectedImage != '') ? false: true} icon={ 'Delete' }  onClick={this.onEraseButton} /></td>
                     </tr>
                   </tbody>
                 </table>

@@ -459,7 +459,7 @@ export default class PropertyFieldSPListQueryHost extends React.Component<IPrope
                 onChanged={(option: IDropdownOption, selectIndex?: number) => this.onChangedFilterOperator(option, selectIndex, index)}
               />
               <TextField disabled={this.props.disabled} defaultValue={value.value} onChanged={(value2: string) => this.onChangedFilterValue(value2, index)} />
-              <CommandButton disabled={this.props.disabled} onClick={() => this.onClickRemoveFilter(index)} iconProps={ { iconName: 'Delete' } }>
+              <CommandButton disabled={this.props.disabled} onClick={() => this.onClickRemoveFilter(index)} icon={ 'Delete' }>
                 {strings.SPListQueryRemove}
               </CommandButton>
             </div>
@@ -469,7 +469,7 @@ export default class PropertyFieldSPListQueryHost extends React.Component<IPrope
 
         {this.props.showFilters != false ?
           <CommandButton onClick={this.onClickAddFilter}
-          disabled={this.props.disabled === false && this.state.selectedList != null && this.state.selectedList != '' ? false : true } iconProps={ { iconName: 'Add' } }>
+          disabled={this.props.disabled === false && this.state.selectedList != null && this.state.selectedList != '' ? false : true } icon={ 'Add' }>
           {strings.SPListQueryAdd}
           </CommandButton>
           : ''}

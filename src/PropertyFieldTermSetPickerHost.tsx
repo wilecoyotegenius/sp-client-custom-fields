@@ -302,7 +302,7 @@ export default class PropertyFieldTermSetPickerHost extends React.Component<IPro
                 />
               </td>
               <td width="32">
-                <IconButton disabled={this.props.disabled} iconProps={ { iconName: 'Tag' } } onClick={this.onOpenPanel} />
+                <IconButton disabled={this.props.disabled} icon={ 'Tag' } onClick={this.onOpenPanel} />
               </td>
             </tr>
           </tbody>

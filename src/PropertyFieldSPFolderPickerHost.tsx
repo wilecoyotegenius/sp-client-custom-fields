@@ -320,8 +320,8 @@ export default class PropertyFieldSPFolderPickerHost extends React.Component<IPr
                 <table style={{width: '100%', borderSpacing: 0}}>
                   <tbody>
                     <tr>
-                      <td><IconButton disabled={this.props.disabled} iconProps={ { iconName: 'FolderSearch' } } onClick={this.onBrowseClick} /></td>
-                      <td><IconButton disabled={this.props.disabled} iconProps={ { iconName: 'Delete' } } onClick={this.onClearSelectionClick} /></td>
+                      <td><IconButton disabled={this.props.disabled} icon={ 'FolderSearch' } onClick={this.onBrowseClick} /></td>
+                      <td><IconButton disabled={this.props.disabled} icon={ 'Delete' } onClick={this.onClearSelectionClick} /></td>
                     </tr>
                   </tbody>
                 </table>
@@ -343,16 +343,16 @@ export default class PropertyFieldSPFolderPickerHost extends React.Component<IPr
             <div style={{ height: '330px'}}>
                 { this.state.loading ? <div><Spinner type={ SpinnerType.normal } /></div> : null }
 
-                { this.state.loading === false && currentFolderisRoot === false ? <IconButton onClick={this.onClickParent} iconProps={ { iconName: 'Reply' } }>...</IconButton> : null }
+                { this.state.loading === false && currentFolderisRoot === false ? <IconButton onClick={this.onClickParent} icon={ 'Reply' }>...</IconButton> : null }
 
                 <List items={this.state.childrenFolders.value}  onRenderCell={this.onRenderCell} />
                 { this.state.loading === false ?
-                <IconButton iconProps={ { iconName: 'CaretLeft8' } } onClick={this.onClickPrevious}
+                <IconButton icon={ 'CaretLeft8' } onClick={this.onClickPrevious}
                   disabled={ this.currentPage > 0 ? false : true }
                   />
                 : null }
                 { this.state.loading === false ?
-                <IconButton iconProps={ { iconName: 'CaretRight8' } } onClick={this.onClickNext}
+                <IconButton icon={ 'CaretRight8' } onClick={this.onClickNext}
                   disabled={ this.state.childrenFolders.value.length < this.pageItemCount ? true : false }
                    />
                 : null }
